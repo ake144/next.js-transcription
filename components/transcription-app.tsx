@@ -119,7 +119,7 @@ export function TranscriptionAppComponent() {
         <Textarea 
           value={transcription} 
           readOnly 
-          placeholder = {isTranscribing ? "Transcribing": "Your transcription will appear here..."}
+          placeholder = {isTranscribing ? "Transcribing...": "Your transcription will appear here..."}
           className="min-h-[200px]"
         />
       </CardContent>
