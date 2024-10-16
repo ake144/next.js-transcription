@@ -105,45 +105,6 @@ export function TranscriptionAppComponent() {
     }
   }
 
-  const transcribeAudioFile = async () => {
-    if (!audioFile) return
-
-    // Initialize the Web Audio API context
-    audioContextRef.current = new (window.AudioContext || window.AudioContext)()
-
-    try {
-      const arrayBuffer = await audioFile.arrayBuffer()
-      const audioBuffer = await audioContextRef.current.decodeAudioData(arrayBuffer)
-
-      // Create a buffer source and connect it to the audio context
-      const source = audioContextRef.current.createBufferSource()
-      source.buffer = audioBuffer
-
-      // Create a script processor node for audio processing
-      const scriptNode = audioContextRef.current.createScriptProcessor(4096, 1, 1)
-
-      // Connect the nodes
-      source.connect(scriptNode)
-      scriptNode.connect(audioContextRef.current.destination)
-
-      // Start audio playback
-      source.start()
-
-      // Process audio data
-      scriptNode.onaudioprocess = (audioProcessingEvent) => {
-        const inputBuffer = audioProcessingEvent.inputBuffer
-        const inputData = inputBuffer.getChannelData(0)
-
-        // Here you would typically send `inputData` to a speech recognition service
-        // For this example, we'll just simulate transcription
-        const simulatedTranscription = "This is a simulated transcription of the uploaded audio file."
-        setTranscription(simulatedTranscription)
-      }
-
-    } catch (error) {
-      console.error('Error processing audio file:', error)
-    }
-  }
 
   return (
     <Card className="w-full max-w-2xl mx-auto">
@@ -158,7 +119,7 @@ export function TranscriptionAppComponent() {
         <Textarea 
           value={transcription} 
           readOnly 
-          placeholder="Your transcription will appear here..."
+          placeholder = {isTranscribing ? "Transcribing": "Your transcription will appear here..."}
           className="min-h-[200px]"
         />
       </CardContent>
