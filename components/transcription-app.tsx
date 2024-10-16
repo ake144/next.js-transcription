@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 export function TranscriptionAppComponent() {
-  const [isListening, setIsListening] = useState(false)
   const [transcription, setTranscription] = useState('')
   const [isTranscribing, setIsTranscribing] = useState(false)
   const [audioFile, setAudioFile] = useState<File | null>(null)
