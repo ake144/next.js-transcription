@@ -107,7 +107,7 @@ export function TranscriptionAppComponent() {
 
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="w-full max-w-2xl mx-auto mt-11" >
       <CardHeader>
         <CardTitle>Audio Transcription App</CardTitle>
       </CardHeader>
