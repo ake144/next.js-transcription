@@ -12,43 +12,41 @@ export function TranscriptionAppComponent() {
   const [transcription, setTranscription] = useState('')
   const [isTranscribing, setIsTranscribing] = useState(false)
   const [audioFile, setAudioFile] = useState<File | null>(null)
-  const recognitionRef = useRef<any>(null)
-  const audioContextRef = useRef<AudioContext | null>(null)
 
-  useEffect(() => {
-    if (typeof window !== 'undefined' && 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
-      const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
-      recognitionRef.current = new SpeechRecognition()
-      recognitionRef.current.continuous = true
-      recognitionRef.current.interimResults = true
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined' && 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+  //     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition
+  //     recognitionRef.current = new SpeechRecognition()
+  //     recognitionRef.current.continuous = true
+  //     recognitionRef.current.interimResults = true
 
 
      
 
-      recognitionRef.current.onresult = (event:any) => {
-        let interimTranscript = ''
-        let finalTranscript = ''
+  //     recognitionRef.current.onresult = (event:any) => {
+  //       let interimTranscript = ''
+  //       let finalTranscript = ''
 
-        for (let i = event.resultIndex; i < event.results.length; ++i) {
-          if (event.results[i].isFinal) {
-            finalTranscript += event.results[i][0].transcript
-          } else {
-            interimTranscript += event.results[i][0].transcript
-          }
-        }
+  //       for (let i = event.resultIndex; i < event.results.length; ++i) {
+  //         if (event.results[i].isFinal) {
+  //           finalTranscript += event.results[i][0].transcript
+  //         } else {
+  //           interimTranscript += event.results[i][0].transcript
+  //         }
+  //       }
 
-        setTranscription(finalTranscript + interimTranscript)
-      }
-    } else {
-      console.error('Speech recognition not supported')
-    }
+  //       setTranscription(finalTranscript + interimTranscript)
+  //     }
+  //   } else {
+  //     console.error('Speech recognition not supported')
+  //   }
 
-    return () => {
-      if (recognitionRef.current) {
-        recognitionRef.current.stop()
-      }
-    }
-  }, [])
+  //   return () => {
+  //     if (recognitionRef.current) {
+  //       recognitionRef.current.stop()
+  //     }
+  //   }
+  // }, [])
 
 
   const hadleAudioTranscription = async () => {
@@ -79,14 +77,14 @@ export function TranscriptionAppComponent() {
     }     
   }
 
-  const toggleListening = () => {
-    if (isListening) {
-      recognitionRef.current?.stop()
-    } else {
-      recognitionRef.current?.start()
-    }
-    setIsListening(!isListening)
-  }
+  // const toggleListening = () => {
+  //   if (isListening) {
+  //     recognitionRef.current?.stop()
+  //   } else {
+  //     recognitionRef.current?.start()
+  //   }
+  //   setIsListening(!isListening)
+  // }
 
   const downloadTranscription = () => {
     const element = document.createElement('a')
@@ -124,9 +122,9 @@ export function TranscriptionAppComponent() {
         />
       </CardContent>
       <CardFooter className="flex flex-wrap justify-between gap-2">
-        <Button onClick={toggleListening} variant={isListening ? "destructive" : "default"}>
+        {/* <Button onClick={toggleListening} variant={isListening ? "destructive" : "default"}>
           {isListening ? 'Stop Listening' : 'Start Listening'}
-        </Button>
+        </Button> */}
         <Button onClick={hadleAudioTranscription} disabled={!audioFile}>
           Transcribe Audio File
         </Button>
